@@ -9,10 +9,15 @@ class Image extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'user_id'];
 
     public function path()
     {
         return config('image.path.relative') . $this->path;
+    }
+
+    public function user()
+    {
+      return $this->belongsTo(User::class);
     }
 }

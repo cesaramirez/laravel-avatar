@@ -11,10 +11,12 @@ use Intervention\Image\ImageManager;
 class AvatarController extends Controller
 {
     protected $imageManager;
+    protected $image;
 
-    public function __construct(ImageManager $imageManager)
+    public function __construct(ImageManager $imageManager, Image $image)
     {
         $this->imageManager = $imageManager;
+        $this->image = $image;
     }
 
     public function store(StoreAvatarFormRequest $request)
@@ -27,9 +29,11 @@ class AvatarController extends Controller
                                ->encode('png')
                                ->save(config('image.path.absolute'). $path = '/'.uniqid(true).'.png');
 
-        $image = Image::create([
-            'path' => $path
-        ]);
+        $image = $this->image;
+        $image->path = $path;
+        $image->user()->associate($request->user());
+        $image->save();
+
         return response([
           'data' => [
             'id'   => $image->id,

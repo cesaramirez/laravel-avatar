@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 $router->post('/account/avatar', 'Account\AvatarController@store')->name('account.avatar.store');
+$router->patch('/account', 'Account\AccountController@update')->name('account.update')->middleware('auth');
