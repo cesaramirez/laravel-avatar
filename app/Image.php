@@ -13,6 +13,6 @@ class Image extends Model
 
     public function path()
     {
-        return config('images.path.relative') . $this->path;
+        return config('image.path.relative') . $this->path;
     }
 }

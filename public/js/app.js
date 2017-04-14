@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -970,7 +970,7 @@ __webpack_require__(30);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('avatar-upload', __webpack_require__(49));
+Vue.component('avatar-upload', __webpack_require__(35));
 
 var app = new Vue({
   el: '#app'
@@ -1824,12 +1824,70 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 29 */,
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_upload__ = __webpack_require__(31);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['currentAvatar'],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_upload__["a" /* default */]],
+  data: function data() {
+    return {
+      errors: [],
+      avatar: {
+        id: null,
+        path: this.currentAvatar
+      }
+    };
+  },
+
+  methods: {
+    fileChange: function fileChange(e) {
+      var _this = this;
+
+      this.upload(e).then(function (response) {
+        _this.avatar = response.data.data;
+      }).catch(function (error) {
+        if (error.response.status == 422) {
+          _this.errors = error.response.data;
+          return;
+        }
+        _this.errors = 'Something went wrong. Try again.';
+      });
+    }
+  }
+});
+
+/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(33);
+window._ = __webpack_require__(34);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1837,9 +1895,9 @@ window._ = __webpack_require__(33);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(32);
+window.$ = window.jQuery = __webpack_require__(33);
 
-__webpack_require__(31);
+__webpack_require__(32);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -1847,7 +1905,7 @@ __webpack_require__(31);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(37);
+window.Vue = __webpack_require__(38);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -1877,6 +1935,51 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 /* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    endpoint: {
+      type: String
+    },
+    sendAs: {
+      type: String,
+      default: 'file'
+    }
+  },
+  data: function data() {
+    return {
+      uploading: false
+    };
+  },
+
+  methods: {
+    upload: function upload(e) {
+      var _this = this;
+
+      this.uploading = true;
+
+      return axios.post(this.endpoint, this.packageUploads(e)).then(function (response) {
+        _this.uploading = false;
+        console.log(response);
+        return Promise.resolve(response);
+      }).catch(function (error) {
+        _this.uploading = false;
+        console.log('reject');
+        return Promise.reject(error);
+      });
+    },
+    packageUploads: function packageUploads(e) {
+      var fileData = new FormData();
+      fileData.append(this.sendAs, e.target.files[0]);
+      return fileData;
+    }
+  }
+});
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4259,7 +4362,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14519,7 +14622,7 @@ return jQuery;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31608,11 +31711,44 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(38)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(39)(module)))
 
 /***/ }),
-/* 34 */,
 /* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(36)(
+  /* script */
+  __webpack_require__(29),
+  /* template */
+  __webpack_require__(37),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/cesar/Code/learn/codecourse/laravel-avatar/resources/assets/js/components/AvatarUpload.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AvatarUpload.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9dae9b0a", Component.options)
+  } else {
+    hotAPI.reload("data-v-9dae9b0a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports) {
 
 // this module is a runtime utility for cleaner component module output and will
@@ -31669,8 +31805,56 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 36 */,
 /* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "form-group",
+    class: {
+      'has-error': _vm.errors[this.sendAs]
+    }
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": _vm.sendAs
+    }
+  }, [_vm._v("Avatar")]), _vm._v(" "), (_vm.uploading) ? _c('div', [_vm._v("\n          Processing\n        ")]) : _c('input', {
+    attrs: {
+      "type": "file",
+      "name": _vm.sendAs
+    },
+    on: {
+      "change": _vm.fileChange
+    }
+  }), _vm._v(" "), (_vm.errors[this.sendAs]) ? _c('div', {
+    staticClass: "help-block"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors[this.sendAs][0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), (_vm.avatar.path) ? _c('div', [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "avatar_id"
+    },
+    domProps: {
+      "value": _vm.avatar.id
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "alt": "Current Avatar",
+      "src": _vm.avatar.path
+    }
+  })]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-9dae9b0a", module.exports)
+  }
+}
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40998,7 +41182,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(8)))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -41026,186 +41210,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
-
-/***/ }),
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_upload__ = __webpack_require__(51);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['currentAvatar'],
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_upload__["a" /* default */]],
-  data: function data() {
-    return {
-      errors: [],
-      avatar: {
-        id: null,
-        path: this.currentAvatar
-      }
-    };
-  },
-
-  methods: {
-    fileChange: function fileChange(e) {
-      this.upload(e);
-    }
-  }
-});
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(35)(
-  /* script */
-  __webpack_require__(48),
-  /* template */
-  __webpack_require__(50),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/home/cesar/Code/learn/codecourse/laravel-avatar/resources/assets/js/components/AvatarUpload.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AvatarUpload.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9dae9b0a", Component.options)
-  } else {
-    hotAPI.reload("data-v-9dae9b0a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "avatar"
-    }
-  }, [_vm._v("Avatar")]), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "file"
-    },
-    on: {
-      "change": _vm.fileChange
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "help-block"
-  }, [_vm._v("\n            Help\n        ")])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "avatar_id"
-    }
-  }), _vm._v(" "), _c('img', {
-    staticClass: "avatar",
-    attrs: {
-      "alt": "Current Avatar"
-    }
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-9dae9b0a", module.exports)
-  }
-}
-
-/***/ }),
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-  props: {
-    endpoint: {
-      type: String
-    },
-    sendAs: {
-      type: String,
-      default: 'file'
-    }
-  },
-  data: function data() {
-    return {
-      uploading: true
-    };
-  },
-
-  methods: {
-    upload: function upload(e) {
-      var _this = this;
-
-      this.uploading = true;
-
-      return axios.post(this.endpoint, this.packageUploads(e)).then(function (response) {
-        _this.uploading = false;
-
-        return Promise.resolve(response);
-      }).catch(function (error) {
-        _this.uploading = false;
-        return Promise.reject(error);
-      });
-    },
-    packageUploads: function packageUploads(e) {
-      var fileData = new FormData();
-      fileData.append(this.sendAs, e.target.files[0]);
-      return fileData;
-    }
-  }
-});
 
 /***/ })
 /******/ ]);

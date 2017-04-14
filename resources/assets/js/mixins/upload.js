@@ -10,22 +10,25 @@ export default {
   },
   data() {
     return {
-        uploading: true
+        uploading: false
     }
   },
   methods: {
       upload(e) {
         this.uploading = true;
 
-        return axios.post(this.endpoint, this.packageUploads(e)).then((response) => {
+        return axios.post(this.endpoint, this.packageUploads(e))
+        .then((response) => {
           this.uploading = false
-
+          console.log(response);
           return Promise.resolve(response)
         }).catch((error) => {
           this.uploading = false
+          console.log('reject');
           return Promise.reject(error)
         })
       },
+
       packageUploads(e) {
         let fileData = new FormData()
         fileData.append(this.sendAs, e.target.files[0])
