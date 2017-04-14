@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="form-group">
-                          <avatar-upload endpoint="avc" send-as="image" current-avatar="{{ auth()->user()->imagePath() }}"></avatar-upload>
+                          <avatar-upload endpoint="{{ route('account.avatar.store') }}" send-as="image" current-avatar="{{ auth()->user()->avatarPath() }}"></avatar-upload>
                         </div>
                         <div class="form-group">
                           <label for="name">Name</label>

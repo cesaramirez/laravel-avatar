@@ -18,3 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+$router->post('/account/avatar', 'Account\AvatarController@store')->name('account.avatar.store');

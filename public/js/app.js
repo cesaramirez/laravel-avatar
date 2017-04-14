@@ -41043,9 +41043,49 @@ module.exports = __webpack_require__(10);
 /* 46 */,
 /* 47 */,
 /* 48 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token, expected , (36:2)\n\n\u001b[0m \u001b[90m 34 | \u001b[39m      }\n \u001b[90m 35 | \u001b[39m  }\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 | \u001b[39m  methods\u001b[33m:\u001b[39m {\n \u001b[90m    | \u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 | \u001b[39m      fileChange(e) {\n \u001b[90m 38 | \u001b[39m        \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mupload(e)\n \u001b[90m 39 | \u001b[39m      }\u001b[0m\n");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_upload__ = __webpack_require__(51);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['currentAvatar'],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_upload__["a" /* default */]],
+  data: function data() {
+    return {
+      errors: [],
+      avatar: {
+        id: null,
+        path: this.currentAvatar
+      }
+    };
+  },
+
+  methods: {
+    fileChange: function fileChange(e) {
+      this.upload(e);
+    }
+  }
+});
 
 /***/ }),
 /* 49 */
@@ -41122,6 +41162,50 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-9dae9b0a", module.exports)
   }
 }
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    endpoint: {
+      type: String
+    },
+    sendAs: {
+      type: String,
+      default: 'file'
+    }
+  },
+  data: function data() {
+    return {
+      uploading: true
+    };
+  },
+
+  methods: {
+    upload: function upload(e) {
+      var _this = this;
+
+      this.uploading = true;
+
+      return axios.post(this.endpoint, this.packageUploads(e)).then(function (response) {
+        _this.uploading = false;
+
+        return Promise.resolve(response);
+      }).catch(function (error) {
+        _this.uploading = false;
+        return Promise.reject(error);
+      });
+    },
+    packageUploads: function packageUploads(e) {
+      var fileData = new FormData();
+      fileData.append(this.sendAs, e.target.files[0]);
+      return fileData;
+    }
+  }
+});
 
 /***/ })
 /******/ ]);

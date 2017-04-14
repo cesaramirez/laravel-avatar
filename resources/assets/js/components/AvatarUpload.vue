@@ -19,7 +19,7 @@ import upload from '../mixins/upload'
 
 export default {
   props: [
-    currentAvatar
+    'currentAvatar'
   ],
   mixins: [
     upload
@@ -32,7 +32,7 @@ export default {
           path: this.currentAvatar
         }
       }
-  }
+  },
   methods: {
       fileChange(e) {
         this.upload(e)
